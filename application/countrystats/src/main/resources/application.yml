@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: "countrystats"
+
+server:
+  servlet:
+    context-path: /api
