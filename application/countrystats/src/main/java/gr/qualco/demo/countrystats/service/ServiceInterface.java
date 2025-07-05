@@ -7,7 +7,7 @@ public interface ServiceInterface<TDto, ID, TRepo> {
 
     TRepo getRepository();
 
-    List<TDto> findAll();
+    List<TDto> findAllDto();
 
-    Optional<TDto> findById(ID id);
+    Optional<TDto> findByIdDto(ID id);
 }

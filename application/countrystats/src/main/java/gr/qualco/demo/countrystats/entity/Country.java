@@ -2,7 +2,6 @@ package gr.qualco.demo.countrystats.entity;
 
 import gr.qualco.demo.countrystats.entity.countryLanguage.CountryLanguage;
 import gr.qualco.demo.countrystats.entity.countryStat.CountryStat;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

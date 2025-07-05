@@ -11,7 +11,7 @@ import java.util.List;
 public interface CountryLanguageMapper extends BaseMapper<CountryLanguageDto, CountryLanguage> {
 
     @Override
-    @Mapping(source = "language.languageId", target = "id")
+    @Mapping(target = "id", ignore = true)
     @Mapping(source = "language.language", target = "languageName")
     CountryLanguageDto toDto(CountryLanguage entity);
 

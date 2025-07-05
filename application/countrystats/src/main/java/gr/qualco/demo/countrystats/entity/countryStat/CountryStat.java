@@ -32,7 +32,6 @@ public class CountryStat {
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
-    @Column
     private Integer population;
 
     @Column(precision = 15)

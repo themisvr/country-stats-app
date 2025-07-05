@@ -1,5 +1,6 @@
-package gr.qualco.demo.countrystats.dto.country;
+package gr.qualco.demo.countrystats.dto.country.response;
 
+import gr.qualco.demo.countrystats.dto.country.CountryDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetCountryLanguagesResponse {
-    private List<CountryLanguageDto> countryLanguages;
+public class GetCountriesResponse {
+
+    List<CountryDto> countries;
 }

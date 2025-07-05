@@ -24,14 +24,18 @@ public abstract class BaseService<TDto extends DtoInterface<ID>,
     }
 
     @Override
-    public List<TDto> findAll() {
+    public List<TDto> findAllDto() {
         List<TEntity> entities = repository.findAll();
         return mapper.toDtoList(entities);
     }
 
     @Override
-    public Optional<TDto> findById(ID id) {
+    public Optional<TDto> findByIdDto(ID id) {
         return repository.findById(id).map(mapper::toDto);
+    }
+
+    protected List<TEntity> findAllEntity() {
+        return repository.findAll();
     }
 
 }

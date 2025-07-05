@@ -1,7 +1,8 @@
 package gr.qualco.demo.countrystats.controller;
 
-import gr.qualco.demo.countrystats.dto.country.GetCountriesResponse;
-import gr.qualco.demo.countrystats.dto.country.GetCountryLanguagesResponse;
+import gr.qualco.demo.countrystats.dto.country.response.GetCountriesMaxGdpPopulationRatioResponse;
+import gr.qualco.demo.countrystats.dto.country.response.GetCountriesResponse;
+import gr.qualco.demo.countrystats.dto.country.response.GetCountryLanguagesResponse;
 import gr.qualco.demo.countrystats.service.country.CountryServiceInterface;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +24,6 @@ public class CountryController {
     public ResponseEntity<GetCountriesResponse> getCountries() {
         GetCountriesResponse response = countryService.getCountries();
 
-        if (response.getCountries().isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
         return ResponseEntity.ok(response);
     }
 
@@ -37,5 +34,10 @@ public class CountryController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("statistics")
+    public ResponseEntity<GetCountriesMaxGdpPopulationRatioResponse> getCountriesMaxGdpPopulationRatio() {
+        GetCountriesMaxGdpPopulationRatioResponse response = countryService.getCountriesMaxGdpPopulationRatio();
 
+        return ResponseEntity.ok(response);
+    }
 }
