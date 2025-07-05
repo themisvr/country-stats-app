@@ -1,0 +1,22 @@
+<div class="search-container">
+  <h2>Nation Statistics Search</h2>
+
+  <div class="filters">
+
+    <app-region-selector (regionSelected)="onRegionSelected($event)"></app-region-selector>
+    
+    <label>
+      From Year:
+      <input type="number" [(ngModel)]="fromYear" placeholder="e.g. 2000" />
+    </label>
+
+    <label>
+      To Year:
+      <input type="number" [(ngModel)]="toYear" placeholder="e.g. 2020" />
+    </label>
+
+    <button (click)="onSearch()">Search</button>
+  </div>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+</div>
