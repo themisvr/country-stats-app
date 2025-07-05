@@ -15,7 +15,9 @@ public class CountrystatsApplication {
 	}
 
 	private static void loadEnvProperties() {
-		Dotenv dotenv = Dotenv.load();
+		Dotenv dotenv = Dotenv.configure()
+				.directory("../../")
+				.load();;
 		System.setProperty("spring.datasource.url", dotenv.get("DB_URL"));
 		System.setProperty("spring.datasource.username", dotenv.get("DB_USERNAME"));
 		System.setProperty("spring.datasource.password", dotenv.get("DB_PASSWORD"));
