@@ -14,7 +14,7 @@ export class RegionComponent implements OnInit {
   regions: Region[] = [];
   selectedRegionId: number | null = null;
 
-  @Output() regionSelected = new EventEmitter<number>();
+  @Output() regionSelected = new EventEmitter<number | null>();
 
   constructor(private regionService: RegionService) {}
 
@@ -22,7 +22,6 @@ export class RegionComponent implements OnInit {
     this.regionService.getRegions().subscribe({
       next: (data: RegionResponse) => {
         this.regions = data.regions;
-        console.log('Regions loaded:', this.regions);
       },
       error: (err) => {
         console.error('Failed to load regions', err);
@@ -30,10 +29,8 @@ export class RegionComponent implements OnInit {
     });
   }
 
-  onRegionChange(event: Event): void {
-    const value = (event.target as HTMLSelectElement).value;
-    this.selectedRegionId = Number(value);
-    this.regionSelected.emit(this.selectedRegionId);
+  onRegionChange(regionId: number | null): void {
+    this.regionSelected.emit(regionId);
   }
 
 }

@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CountriesResponse } from '../models/countries-response.model';
 import { CountryLanguagesResponse } from '../models/language.model';
 import { CountryStatisticsResponse } from '../models/country-statistics.model';
+import { CountryEnhancedDto } from '../models/country-enhanced-response.model';
+import { PaginatedResponse } from '../models/paginated-response-interface.model';
 
 @Injectable({ providedIn: 'root' })
 export class CountryService {
@@ -22,4 +24,19 @@ export class CountryService {
   getCountryStatistics(): Observable<CountryStatisticsResponse> {
     return this.http.get<CountryStatisticsResponse>(`${this.baseUrl}/countries/statistics`);
   }
+
+  getCountriesRegions(fromYear?: number, toYear?: number, regionId?: number | null, page: number = 0, size: number = 10) {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    if (fromYear !== undefined) params = params.set('yearFrom', fromYear.toString());
+    if (toYear !== undefined) params = params.set('yearTo', toYear.toString());
+    if (regionId != null) {
+      params = params.set('regionId', regionId.toString());
+    }
+
+    return this.http.get<PaginatedResponse<CountryEnhancedDto>>(`${this.baseUrl}/countries/regions`, { params });
+  }
+
 }

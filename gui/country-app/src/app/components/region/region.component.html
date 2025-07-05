@@ -1,8 +1,13 @@
 <label class="filter-item">
   Region:
-  <select [(ngModel)]="selectedRegionId" name="region" class="region-select">
+  <select
+    [(ngModel)]="selectedRegionId"
+    (ngModelChange)="onRegionChange($event)"
+    name="region"
+    class="region-select"
+  >
     <option value="">-- None --</option>
-    <option *ngFor="let region of regions" [value]="region.name">
+    <option *ngFor="let region of regions" [value]="region.id">
       {{ region.name }}
     </option>
   </select>

@@ -1,8 +1,8 @@
 .filters {
   display: flex;
   align-items: center;
-  gap: 1rem; /* space between inputs */
-  flex-wrap: wrap; /* wrap on small screens */
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .filters label {
@@ -34,4 +34,36 @@
 
 .filters button:hover {
   background-color: #0056b3;
+}
+
+.search-container {
+  margin: 20px;
+}
+
+.filters {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.result-table th,
+.result-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.pagination-controls {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }

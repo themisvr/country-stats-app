@@ -1,9 +1,10 @@
+import { PaginatedResponse } from '../../models/paginated-response-interface.model';
+import { CountryEnhancedDto } from './../../models/country-enhanced-response.model';
+import { CountryService } from './../../services/country.service';
 import { RegionComponent } from './../region/region.component';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NationsSearchService } from '../../services/nations-search.service';
 import { FormsModule } from '@angular/forms';
-// import { CountryStatistics } from '../models/country-statistics.model';
 
 @Component({
   selector: 'app-nations-search',
@@ -13,37 +14,57 @@ import { FormsModule } from '@angular/forms';
   standalone: true
 })
 export class NationsSearchComponent implements OnInit {
-  // statistics: CountryStatistics[] = [];
+  countriesFiltered: CountryEnhancedDto[] = [];
   fromYear?: number;
   toYear?: number;
-  selectedRegionId?: number;
+  selectedRegionId?: number | null;
   errorMessage: string = '';
 
-  constructor(private nationSearchService: NationsSearchService) {}
+  currentPage: number = 0;
+  pageSize: number = 10;
+  totalPages: number = 0;
+
+  constructor(private countryService: CountryService) {}
 
   ngOnInit(): void {}
 
-  onRegionSelected(regionId: number) {
+  onRegionSelected(regionId: number | null) {
     this.selectedRegionId = regionId;
   }
 
-  onSearch() {
-    // if (!this.fromYear || !this.toYear || !this.selectedRegionId) {
-    //   this.errorMessage = 'Please provide all search criteria.';
-    //   return;
-    // }
+  onSearch(page: number = 0): void {
+    this.errorMessage = '';
+    this.currentPage = page;
 
-    // this.errorMessage = '';
-    // this.nationSearchService
-    //   .searchStatistics(this.fromYear, this.toYear, this.selectedRegionId)
-    //   .subscribe({
-    //     next: (response) => {
-    //       this.statistics = response.countriesStats;
-    //     },
-    //     error: (err) => {
-    //       console.error(err);
-    //       this.errorMessage = 'Failed to load data.';
-    //     }
-    //   });
+    this.countryService.getCountriesRegions(this.fromYear, this.toYear, this.selectedRegionId, this.currentPage, this.pageSize)
+      .subscribe({
+        next: (response: PaginatedResponse<CountryEnhancedDto>) => {
+          this.countriesFiltered = response.content;
+          this.totalPages = response.page.totalPages;
+        },
+        error: (err) => {
+          this.errorMessage = 'Failed to load countries. Please try again later.';
+          console.error('Search error:', err);
+        }
+      });
+    }
+
+  onPageChange(newPage: number) {
+    this.onSearch(newPage);
   }
+
+  nextPage(): void {
+    if (this.currentPage + 1 < this.totalPages) {
+      this.currentPage++;
+      this.onSearch(this.currentPage);
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.onSearch(this.currentPage);
+    }
+  }
+
 }

@@ -2,9 +2,8 @@
   <h2>Nation Statistics Search</h2>
 
   <div class="filters">
-
     <app-region-selector (regionSelected)="onRegionSelected($event)"></app-region-selector>
-    
+
     <label>
       From Year:
       <input type="number" [(ngModel)]="fromYear" placeholder="e.g. 2000" />
@@ -19,4 +18,37 @@
   </div>
 
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="countriesFiltered.length > 0" class="results-container">
+    <table class="result-table">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Region</th>
+          <th>Continent</th>
+          <th>Year</th>
+          <th>Population</th>
+          <th>GDP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let country of countriesFiltered">
+          <tr *ngFor="let stat of country.countryStats">
+            <td>{{ country.name }}</td>
+            <td>{{ country.region.name }}</td>
+            <td>{{ country.region.continentName }}</td>
+            <td>{{ stat.year }}</td>
+            <td>{{ stat.population }}</td>
+            <td>{{ stat.gdp | number }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
+    <div class="pagination-controls">
+      <button (click)="prevPage()" [disabled]="currentPage === 0">Previous</button>
+      <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage + 1 >= totalPages">Next</button>
+    </div>
+  </div>
 </div>
