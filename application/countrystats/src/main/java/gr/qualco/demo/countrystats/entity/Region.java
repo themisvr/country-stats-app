@@ -1,6 +1,5 @@
 package gr.qualco.demo.countrystats.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,7 +37,7 @@ public class Region {
     @JoinColumn(name = "continent_id", nullable = false)
     private Continent continent;
 
-    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "region")
     private List<Country> countries;
 
 }
