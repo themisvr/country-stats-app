@@ -1,0 +1,22 @@
+<div class="container">
+    <h2 class="country-name">{{ countryName }}</h2>
+
+    <div *ngIf="noData" class="no-data-message">
+      No languages found for this country.
+    </div>
+
+    <table *ngIf="!noData" class="languages-table">
+      <thead>
+        <tr>
+          <th>Language Name</th>
+          <th>Official</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let language of languages">
+          <td>{{ language.languageName }}</td>
+          <td class="center-text">{{ language.official ? 'Yes' : 'No' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

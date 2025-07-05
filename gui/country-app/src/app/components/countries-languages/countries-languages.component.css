@@ -1,0 +1,53 @@
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .country-name {
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 28px;
+    color: #2c3e50;
+  }
+  
+  .no-data-message {
+    font-size: 18px;
+    color: #888;
+    margin-top: 20px;
+  }
+  
+  .languages-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .languages-table th,
+  .languages-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+  }
+  
+  .languages-table th {
+    background-color: #3498db;
+    color: white;
+    font-weight: 600;
+    text-align: left;
+  }
+  
+  .center-text {
+    text-align: center;
+  }
+  
+  .languages-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .languages-table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }

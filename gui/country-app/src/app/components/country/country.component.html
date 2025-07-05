@@ -1,0 +1,17 @@
+<h2>Countries</h2>
+<table class="country-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Area</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let country of countries" (click)="onCountryClick(country.countryCode2, country.name)">
+      <td>{{ country.name }}</td>
+      <td>{{ country.area | number:'1.0-2' }}</td>
+      <td>{{ country.countryCode2 }}</td>
+    </tr>
+  </tbody>
+</table>

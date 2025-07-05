@@ -1,0 +1,26 @@
+<div class="statistics-container">
+  <h2>Country Statistics</h2>
+  
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Country Name</th>
+          <th>Country Code</th>
+          <th>Year</th>
+          <th>Population</th>
+          <th>GDP (USD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stat of statistics">
+          <td>{{ stat.countryName }}</td>
+          <td>{{ stat.countryCode3 }}</td>
+          <td>{{ stat.year }}</td>
+          <td>{{ stat.population | number }}</td>
+          <td>{{ stat.gdp | number:'1.0-0' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

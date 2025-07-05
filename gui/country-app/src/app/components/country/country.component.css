@@ -1,0 +1,18 @@
+.country-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .country-table th, .country-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .country-table tr {
+    cursor: pointer;
+  }
+  
+  .country-table tr:hover {
+    background-color: #f5f5f5;
+  }
+  
