@@ -12,6 +12,7 @@ public interface CountryStatMapper extends BaseMapper<CountryStatDto, CountrySta
 
     @Override
     @Mapping(target = "id", ignore = true)
+    @Mapping(source = "id.year", target = "year")
     CountryStatDto toDto(CountryStat entity);
 
     @Override

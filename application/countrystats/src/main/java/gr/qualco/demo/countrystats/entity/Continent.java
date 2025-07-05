@@ -1,6 +1,6 @@
 package gr.qualco.demo.countrystats.entity;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = "regions")
 public class Continent {
 
     @Id
@@ -32,6 +34,7 @@ public class Continent {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "continent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "continent", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Region> regions;
 }
