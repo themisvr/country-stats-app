@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  mariadb-db:
+    image: mariadb:10.6
+    container_name: mariadb-container
+    environment:
+      MARIADB_DATABASE: ${DB_DATABASE}
+      MARIADB_USER: ${DB_USERNAME}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  spring-backend:
+    build:
+      context: ./application/countrystats
+      dockerfile: Dockerfile
+    container_name: spring-backend-container
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb-db:3306/${DB_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      - mariadb-db
+    networks:
+      - app-network
+
+  angular-frontend:
+    build:
+      context: ./gui/country-app
+      dockerfile: Dockerfile
+    container_name: angular-frontend-container
+    ports:
+      - "80:80"
+    depends_on:
+      - spring-backend
+    networks:
+      - app-network
+
+volumes:
+  mariadb_data:
+
+networks:
+  app-network:
+    driver: bridge
