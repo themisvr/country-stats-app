@@ -25,15 +25,21 @@ export class CountryService {
     return this.http.get<CountryStatisticsResponse>(`${this.baseUrl}/countries/statistics`);
   }
 
-  getCountriesRegions(fromYear?: number, toYear?: number, regionId?: number | null, page: number = 0, size: number = 10) {
+  getCountriesRegions(yearFrom?: number | null, yearTo?: number | null, regionId?: number | null, page: number = 0, size: number = 10) {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
 
-    if (fromYear !== undefined) params = params.set('yearFrom', fromYear.toString());
-    if (toYear !== undefined) params = params.set('yearTo', toYear.toString());
-    if (regionId != null) {
-      params = params.set('regionId', regionId.toString());
+    if (yearFrom !== null && yearFrom !== undefined) {
+      params = params.append('yearFrom', yearFrom.toString());
+    }
+
+    if (yearTo !== null && yearTo !== undefined) {
+      params = params.append('yearTo', yearTo.toString());
+    }
+
+    if (regionId !== null && regionId !== undefined) {
+      params = params.append('regionId', regionId.toString());
     }
 
     return this.http.get<PaginatedResponse<CountryEnhancedDto>>(`${this.baseUrl}/countries/regions`, { params });

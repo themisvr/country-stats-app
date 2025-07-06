@@ -17,6 +17,10 @@
     <button (click)="onSearch()">Search</button>
   </div>
 
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+
   <div class="results-container">
     <table class="result-table">
       <thead>

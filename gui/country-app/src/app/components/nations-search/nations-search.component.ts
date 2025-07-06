@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { PaginatedResponse } from '../../models/paginated-response-interface.model';
 import { CountryEnhancedDto } from './../../models/country-enhanced-response.model';
 import { CountryService } from './../../services/country.service';
@@ -15,8 +16,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class NationsSearchComponent implements OnInit {
   countriesFiltered: CountryEnhancedDto[] = [];
-  fromYear?: number;
-  toYear?: number;
+  fromYear?: number | null;
+  toYear?: number | null;
   selectedRegionId?: number | null;
   errorMessage: string = '';
 
@@ -41,10 +42,24 @@ export class NationsSearchComponent implements OnInit {
         next: (response: PaginatedResponse<CountryEnhancedDto>) => {
           this.countriesFiltered = response.content;
           this.totalPages = response.page.totalPages;
+          this.errorMessage = '';
         },
-        error: (err) => {
-          this.errorMessage = 'Failed to load countries. Please try again later.';
-          console.error('Search error:', err);
+        error: (err: HttpErrorResponse) => {
+          if (err.status === 400 && err.error) {
+            const errorBody = err.error;
+            
+            if (errorBody.error === "Invalid Year Range" && errorBody.message) {
+              this.errorMessage = errorBody.message;
+            } else if (errorBody.message) {
+              this.errorMessage = errorBody.message;
+            } else {
+              this.errorMessage = 'A bad request occurred. Please check your input.';
+            }
+          } else if (err.status >= 500) {
+            this.errorMessage = 'A server error occurred. Please try again later.';
+          } else {
+            this.errorMessage = 'Failed to load countries due to an unexpected error. Please check your connection.';
+          }
         }
       });
     }
