@@ -13,10 +13,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let language of languages">
-          <td>{{ language.languageName }}</td>
-          <td class="center-text">{{ language.official ? 'Yes' : 'No' }}</td>
-        </tr>
+        <ng-container *ngIf="languages && languages.length > 0; else noLanguagesFound">
+          <tr *ngFor="let language of languages">
+            <td>{{ language.languageName }}</td>
+            <td class="center-text">{{ language.official ? 'Yes' : 'No' }}</td>
+          </tr>
+        </ng-container>
+      
+        <ng-template #noLanguagesFound>
+          <tr>
+            <td colspan="2" class="text-center">No languages found.</td>
+          </tr>
+        </ng-template>
       </tbody>
     </table>
   </div>

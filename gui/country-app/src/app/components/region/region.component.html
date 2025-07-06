@@ -4,8 +4,7 @@
     [(ngModel)]="selectedRegionId"
     (ngModelChange)="onRegionChange($event)"
     name="region"
-    class="region-select"
-  >
+    class="region-select">
     <option value="">-- None --</option>
     <option *ngFor="let region of regions" [value]="region.id">
       {{ region.name }}
