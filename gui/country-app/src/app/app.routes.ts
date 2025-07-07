@@ -1,4 +1,4 @@
-import { NationsSearchComponent } from './components/nations-search/nations-search.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 import { CountriesLanguagesComponent } from './components/countries-languages/countries-languages.component';
 import { CountriesStatisticsComponent } from './components/countries-statistics/countries-statistics.component';
 import { CountryComponent } from './components/country/country.component';
@@ -10,6 +10,6 @@ export const routes: Routes = [
     { path: 'countries', component: CountryComponent },
     { path: 'countries/:code/languages', component: CountriesLanguagesComponent },
     { path: 'countries/statistics', component: CountriesStatisticsComponent },
-    { path: 'nations', component: NationsSearchComponent },
+    { path: 'statistics', component: StatisticsComponent },
     { path: '**', redirectTo: '' }
 ];

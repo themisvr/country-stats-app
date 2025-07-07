@@ -1,0 +1,64 @@
+<div class="search-container">
+    <h2>Nation Statistics Search</h2>
+  
+    <div class="filters">
+      <app-region-selector (regionSelected)="onRegionSelected($event)"></app-region-selector>
+  
+      <label>
+        From Year:
+        <input type="number" [(ngModel)]="fromYear" placeholder="e.g. 2000" />
+      </label>
+
+      <label>
+        To Year:
+        <input type="number" [(ngModel)]="toYear" placeholder="e.g. 2020" />
+      </label>
+  
+      <button (click)="onSearch()">Search</button>
+    </div>
+  
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+  
+    <div class="results-container">
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Region</th>
+            <th>Continent</th>
+            <th>Year</th>
+            <th>Population</th>
+            <th>GDP</th>
+          </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngIf="statistics && statistics.length > 0; else noOverallResults">
+                <tr *ngFor="let stat of statistics">
+                    <td>{{ stat.countryName }}</td>
+                    <td>{{ stat.regionName }}</td>
+                    <td>{{ stat.continentName }}</td>
+                    <td>{{ stat.year }}</td>
+                    <td>{{ stat.population }}</td>
+                    <td>{{ stat.gdp | number }}</td>
+                </tr>
+            </ng-container>
+        
+            <ng-template #noOverallResults>
+                <tr>
+                    <td colspan="6">No results found for the selected criteria.</td>
+                </tr>
+            </ng-template>
+        </tbody>
+      </table>
+  
+      <div class="pagination-controls">
+        <button (click)="prevPage()" [disabled]="currentPage === 0 || totalPages === 0">Previous</button>
+
+        <span *ngIf="totalPages > 0">Page {{ currentPage + 1}} of {{ totalPages }}</span>
+        <span *ngIf="totalPages === 0"></span>
+        <button (click)="nextPage()" [disabled]="currentPage + 1 >= totalPages">Next</button>
+      </div>
+    </div>
+  </div>
